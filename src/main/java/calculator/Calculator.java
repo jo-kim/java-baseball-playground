@@ -24,12 +24,6 @@ public class Calculator {
         return letter.split(" ");
     }
 
-    // 문자열 중 사칙부호 확인
-    public boolean buhoCheck(String letter) {
-        if ("+-*/".contains(letter))
-            return true;
-        return false;
-    }
 
     public int calculate(String letter) {
         String[] questions = split(letter);
@@ -50,23 +44,6 @@ public class Calculator {
             if ("/".equals(buho)) result /= nums;
         }
         return result;
-    }
-
-
-    private int add(int first, int second) {
-        return first + second;
-    }
-
-    private int minus(int first, int second) {
-        return first - second;
-    }
-
-    private int multiple(int first, int second) {
-        return first * second;
-    }
-
-    private int divide(int first, int second) {
-        return first / second;
     }
 
 
