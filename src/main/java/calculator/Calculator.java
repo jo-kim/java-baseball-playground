@@ -1,7 +1,5 @@
 package calculator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -26,39 +24,34 @@ public class Calculator {
         return letter.split(" ");
     }
 
-    // 문자열 중 사칙부호
+    // 문자열 중 사칙부호 확인
     public boolean buhoCheck(String letter) {
-
         if ("+-*/".contains(letter))
             return true;
         return false;
     }
 
-    // 계산
-    public void calculate(String letter) {
+    public int calculate(String letter) {
         String[] questions = split(letter);
-        List<Integer> nums = new ArrayList<>();
+        int result = Integer.parseInt(questions[0]);
+
         String buho = "";
-        for (String question : questions) {
-            if (!buhoCheck(letter)) {
-                nums.add(Integer.parseInt(question));
-            } else
-                buho = question;
+        int nums = 0;
+
+        for (int i = 0; i < questions.length; i++) {
+            if (i % 2 != 0) {
+                buho = questions[i];
+                continue;
+            }
+            nums = Integer.parseInt(questions[i]);
+            if ("+".equals(buho)) result += nums;
+            if ("-".equals(buho)) result -= nums;
+            if ("*".equals(buho)) result *= nums;
+            if ("/".equals(buho)) result /= nums;
         }
-
-        for (int i = 0; i < nums.size(); i++) {
-            if (buho.contains("+"))
-                add(nums.get(i), nums.get(i + 1));
-            if (buho.contains("-"))
-                minus(nums.get(i), nums.get(i + 1));
-            if (buho.contains("*"))
-                multiple(nums.get(i), nums.get(i + 1));
-            if (buho.contains("/"))
-                divide(nums.get(i), nums.get(i + 1));
-        }
-
-
+        return result;
     }
+
 
     private int add(int first, int second) {
         return first + second;
@@ -76,10 +69,6 @@ public class Calculator {
         return first / second;
     }
 
-
-    public int toInt(String letter) {
-        return Integer.parseInt(letter);
-    }
 
     public static void main(String[] args) {
 
